@@ -28,21 +28,3 @@ variable "myLogAnalytics" {
     description = "Name of Log Analytics"
 }
 
-variable "groups" {
-  type = map(object({
-    name        = string
-  }))
-}
-
-variable "users" {
-  type = map(object({
-    display_name        = string
-    user_principal_name = string
-    password            = string
-  }))
-}
-
-variable "myContainerAppEnv" {
-    type = string
-    description = "Name of Conatiner App Environment"
-}
