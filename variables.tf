@@ -41,3 +41,8 @@ variable "users" {
     password            = string
   }))
 }
+
+variable "myContainerAppEnv" {
+    type = string
+    description = "Name of Conatiner App Environment"
+}

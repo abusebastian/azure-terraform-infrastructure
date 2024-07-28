@@ -4,7 +4,7 @@ location = "westeurope"
 myContainerRegistry= "exodusacr"
 myContainerApp= "mycontainerappname"
 myLogAnalytics= "myloganalyticsname"
-
+myContainerAppEnv= "mycontainerappenv"
 groups = {
   group1 = {
     name        = "Group One"
