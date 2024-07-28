@@ -33,11 +33,6 @@ variable "myContainerApp" {
     description = "Name of Container App"
 }
 
-variable "myContainerAppEnv" {
-    type = string
-    description = "Name of Conatiner App Environment"
-}
-
 variable "myLogAnalytics" {
     type = string
     description = "Name of Log Analytics"
