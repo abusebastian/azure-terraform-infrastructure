@@ -4,8 +4,6 @@ trigger:
 parameters:
   - name: armServiceConnection
     default: "exodus"
-  - name: workingDirectory
-    default: "azure-terraform-infrastructure"
   - name: terraformVersion
     default: "1.9.3"
   - name: terraformResourceGroup
@@ -94,7 +92,7 @@ jobs:
     displayName: 'Terraform Initialize'
     inputs:
       azureSubscription: ${{ parameters.armServiceConnection }}
-      workingDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.workingDirectory }}
+      workingDirectory: $(System.DefaultWorkingDirectory)
       addSpnToEnvironment: true
       scriptType: bash
       failOnStandardError: false
@@ -118,7 +116,7 @@ jobs:
     displayName: 'Terraform Plan'
     inputs:
       azureSubscription: ${{ parameters.armServiceConnection }}
-      workingDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.workingDirectory }}
+      workingDirectory: $(System.DefaultWorkingDirectory)
       addSpnToEnvironment: true
       scriptType: bash
       failOnStandardError: false
@@ -131,16 +129,16 @@ jobs:
         arm_subscription_id=`az account show --query id --output tsv`
         export ARM_SUBSCRIPTION_ID=$arm_subscription_id
         if ! ${{ parameters.isdestroy }}; then
-          terraform plan -no-color -input=false -out ${{ parameters.workingDirectory }}.tfplan
+          terraform plan -no-color -input=false -out ${{ parameters.statefile }}.tfplan
         else
-          terraform plan -no-color -input=false -destroy -out ${{ parameters.workingDirectory }}.tfplan
+          terraform plan -no-color -input=false -destroy -out ${{ parameters.statefile }}.tfplan
         fi
 
   - task: AzureCLI@2
     displayName: 'Terraform Apply'
     inputs:
       azureSubscription: ${{ parameters.armServiceConnection }}
-      workingDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.workingDirectory }}
+      workingDirectory: $(System.DefaultWorkingDirectory)
       addSpnToEnvironment: true
       scriptType: bash
       failOnStandardError: false
@@ -153,7 +151,7 @@ jobs:
         export ARM_SUBSCRIPTION_ID=$arm_subscription_id
 
         if ! ${{ parameters.isdestroy }}; then
-          terraform apply -no-color -input=false -auto-approve ${{ parameters.workingDirectory }}.tfplan
+          terraform apply -no-color -input=false -auto-approve ${{ parameters.statefile }}.tfplan
         else
-          terraform apply -destroy -no-color -input=false -auto-approve ${{ parameters.workingDirectory }}.tfplan
+          terraform apply -destroy -no-color -input=false -auto-approve ${{ parameters.statefile }}.tfplan
         fi
