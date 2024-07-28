@@ -28,3 +28,7 @@ variable "myLogAnalytics" {
     description = "Name of Log Analytics"
 }
 
+variable "myContainerAppEnv" {
+    type = string
+    description = "Name of Conatiner App Environment"
+}
