@@ -110,7 +110,6 @@ jobs:
           -backend-config='container_name=${{ parameters.statefile }}-${{ parameters.terraformStorageAccountContainer }}' \
           -backend-config='key=${{ parameters.statefile }}-${{ parameters.terraformStorageAccountContainer }}.tfstate' \
           -backend-config='resource_group_name=${{ parameters.terraformResourceGroup }}'
-        # terraform validate -no-color
 
   - task: AzureCLI@2
     displayName: 'Terraform Plan'

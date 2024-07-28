@@ -3,28 +3,9 @@
 #   name                = var.myLogAnalytics
 #   location            = azurerm_resource_group.rgrp.location
 #   resource_group_name = azurerm_resource_group.rgrp.name
-#   sku                 = "Free"
+#   sku                 = "Free" #changeit
 #   retention_in_days   = 30
 # }
-
-# resource "azurerm_user_assigned_identity" "containerapp" {
-#   location            = azurerm_resource_group.rgrp.location
-#   name                = var.managedIdentityAcr
-#   resource_group_name = azurerm_resource_group.rgrp.name
-# }
-
-# data "azurerm_client_config" "current" {
-# }
-
-# resource "azurerm_role_assignment" "containerapp" {
-#   scope                = azurerm_container_registry.acr.id
-#   role_definition_name = "AcrPull"
-#   principal_id         = azurerm_user_assigned_identity.containerapp.principal_id
-#   depends_on = [
-#     azurerm_user_assigned_identity.containerapp
-#   ]
-# }
-
 
 resource "azurerm_user_assigned_identity" "containerapp" {
   location            = azurerm_resource_group.rgrp.location
